@@ -12,16 +12,17 @@ const Container = styled.div`
 
 export default class Task extends React.Component {
   render() {
-    const isDragDisabled = this.props.task.id === 'task-1';
+    //const isDragDisabled = this.props.task.id === 'task-1';
+    //isDragDisabled={isDragDisabled}
+    //isDragDisabled={isDragDisabled}
     return (
-      <Draggable draggableId={this.props.task.id} index={this.props.index} isDragDisabled={isDragDisabled}>
+      <Draggable draggableId={this.props.task.id} index={this.props.index} >
         {(provided, snapshot) => (
           <Container
             {...provided.dragHandleProps}
             {...provided.draggableProps}
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
-            isDragDisabled={isDragDisabled}
           >{this.props.task.content}</Container>
         )}
       </Draggable>

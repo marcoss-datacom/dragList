@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '@atlaskit/css-reset';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import initialData from './initial-data';
 import Column from './column'
 import styled from 'styled-components';
@@ -9,6 +9,14 @@ import styled from 'styled-components';
 const Container = styled.div`
   display: flex;
 `
+
+class InnerList extends React.PureComponent {
+  render() {
+    const { column, taskmap, index } = this.props;
+    const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+    return <Column column={column} tasks={tasks} index={index} />
+  }
+}
 
 class App extends React.Component {
   state = initialData;
@@ -94,14 +102,22 @@ class App extends React.Component {
       <DragDropContext
         onDragStart={this.onDragStart}
         onDragEnd={this.onDragEnd}>
-        <Container>
-          {this.state.columnOrder.map((columnId, index) => {
-            const column = this.state.columns[columnId];
-            const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
-            const isDropDisabled = index < this.state.homeIndex;
-            return <Column key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled} />;
-          })}
-        </Container>
+        <Droppable droppableId="all-columns" direction="horizontal" type="column">
+          {
+            provided => (
+              <Container {...provided.droppableProps}
+                innerRef={provided.innerRef}>
+                {this.state.columnOrder.map((columnId, index) => {
+                  const column = this.state.columns[columnId];
+                  //const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+                  //const isDropDisabled = index < this.state.homeIndex;
+                  //isDropDisabled={isDropDisabled}
+                  return (<InnerList key={column.id} column={column} taskMap={this.state.tasks} index={index} />);
+                })}
+              </Container>
+            )
+          }
+        </Droppable>
       </DragDropContext>
     )
   }
