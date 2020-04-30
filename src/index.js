@@ -12,8 +12,8 @@ const Container = styled.div`
 
 class InnerList extends React.PureComponent {
   render() {
-    const { column, taskmap, index } = this.props;
-    const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+    const { column, taskMap, index } = this.props;
+    const tasks = column.taskIds.map(taskId => taskMap[taskId]);
     return <Column column={column} tasks={tasks} index={index} />
   }
 }
