@@ -1,9 +1,13 @@
 const initialData = {
     tasks: {
-        'task-1': { id: 'task-1', content: 'Take out the garbage' },
-        'task-2': { id: 'task-2', content: 'Watch my favorite show' },
-        'task-3': { id: 'task-3', content: 'Charge my phone' },
-        'task-4': { id: 'task-4', content: 'Cook dinner' },
+        'task-1': { id: 'task-1', content: 'Take out the garbage', description: 'Some more text goest in here epxlaining the job' },
+        'task-2': { id: 'task-2', content: 'Watch my favorite show', description: 'Some more text goest in here epxlaining the job' },
+        'task-3': { id: 'task-3', content: 'Charge my phone', description: 'Some more text goest in here epxlaining the job' },
+        'task-4': { id: 'task-4', content: 'Cook dinner', description: 'Some more text goest in here epxlaining the job' },
+        'task-5': { id: 'task-1', content: 'Take out the garbage 2', description: 'Some more text goest in here epxlaining the job' },
+        'task-6': { id: 'task-2', content: 'Watch my favorite show 2', description: 'Some more text goest in here epxlaining the job' },
+        'task-7': { id: 'task-3', content: 'Charge my phone 2', description: 'Some more text goest in here epxlaining the job' },
+        'task-8': { id: 'task-4', content: 'Cook dinner 2', description: 'Some more text goest in here epxlaining the job' },
     },
     columns: {
         'column-1': {
@@ -19,17 +23,17 @@ const initialData = {
         'column-3': {
             id: 'column-3',
             title: '5th May',
-            taskIds: [],
+            taskIds: ['task-5', 'task-6'],
         },
         'column-4': {
             id: 'column-4',
             title: '6th May',
-            taskIds: [],
+            taskIds: ['task-7'],
         },
         'column-5': {
             id: 'column-5',
             title: '7th May',
-            taskIds: [],
+            taskIds: ['task-8'],
         },
         'column-6': {
             id: 'column-6',
