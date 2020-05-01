@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import '@atlaskit/css-reset';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import initialData from './initial-data';
-import Column from './column'
+import Column from './components/column'
 import styled from 'styled-components';
 
 const Container = styled.div`
