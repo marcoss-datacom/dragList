@@ -9,13 +9,6 @@ const Container = styled.div`
 `;
 export default class Task extends React.Component {
   render() {
-    //const isDragDisabled = this.props.task.id === 'task-1';
-    //isDragDisabled={isDragDisabled}
-    //isDragDisabled={isDragDisabled}
-    // border: 1px solid lightgrey;
-    // border-radius: 8px;
-    // padding: 8px;
-    // margin-bottom: 8px;
     return (
       <Draggable draggableId={this.props.task.id} index={this.props.index} >
         {(provided, snapshot) => (
@@ -24,7 +17,7 @@ export default class Task extends React.Component {
             {...provided.draggableProps}
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
-          ><OutlinedCard content={this.props.task.content} description={this.props.task.description} id={this.props.task.id} />
+          ><OutlinedCard task={this.props.task} />
           </Container>
         )}
       </Draggable>

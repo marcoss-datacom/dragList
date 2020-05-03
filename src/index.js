@@ -5,6 +5,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import initialData from './initial-data';
 import Column from './components/column'
 import styled from 'styled-components';
+import Appbar from './components/appBar'
 
 const Container = styled.div`
   display: flex;
@@ -99,26 +100,29 @@ class App extends React.Component {
 
   render() {
     return (
-      <DragDropContext
-        onDragStart={this.onDragStart}
-        onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="all-columns" direction="horizontal" type="column">
-          {
-            provided => (
-              <Container {...provided.droppableProps}
-                ref={provided.innerRef}>
-                {this.state.columnOrder.map((columnId, index) => {
-                  const column = this.state.columns[columnId];
-                  //const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
-                  //const isDropDisabled = index < this.state.homeIndex;
-                  //isDropDisabled={isDropDisabled}
-                  return (<InnerList key={column.id} column={column} taskMap={this.state.tasks} index={index} />);
-                })}
-              </Container>
-            )
-          }
-        </Droppable>
-      </DragDropContext>
+      <div>
+        <Appbar />
+        <DragDropContext
+          onDragStart={this.onDragStart}
+          onDragEnd={this.onDragEnd}>
+          <Droppable droppableId="all-columns" direction="horizontal" type="column">
+            {
+              provided => (
+                <Container {...provided.droppableProps}
+                  ref={provided.innerRef}>
+                  {this.state.columnOrder.map((columnId, index) => {
+                    const column = this.state.columns[columnId];
+                    //const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+                    //const isDropDisabled = index < this.state.homeIndex;
+                    //isDropDisabled={isDropDisabled}
+                    return (<InnerList key={column.id} column={column} taskMap={this.state.tasks} index={index} />);
+                  })}
+                </Container>
+              )
+            }
+          </Droppable>
+        </DragDropContext>
+      </div>
     )
   }
 }

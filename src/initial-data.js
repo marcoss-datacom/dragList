@@ -1,13 +1,13 @@
 const initialData = {
     tasks: {
-        'task-1': { id: 'task-1', content: 'Take out the garbage', description: 'Some more text goest in here epxlaining the job' },
-        'task-2': { id: 'task-2', content: 'Watch my favorite show', description: 'Some more text goest in here epxlaining the job' },
-        'task-3': { id: 'task-3', content: 'Charge my phone', description: 'Some more text goest in here epxlaining the job' },
-        'task-4': { id: 'task-4', content: 'Cook dinner', description: 'Some more text goest in here epxlaining the job' },
-        'task-5': { id: 'task-5', content: 'Take out the garbage 2', description: 'Some more text goest in here epxlaining the job' },
-        'task-6': { id: 'task-6', content: 'Watch my favorite show 2', description: 'Some more text goest in here epxlaining the job' },
-        'task-7': { id: 'task-7', content: 'Charge my phone 2', description: 'Some more text goest in here epxlaining the job' },
-        'task-8': { id: 'task-8', content: 'Cook dinner 2', description: 'Some more text goest in here epxlaining the job' },
+        'task-1': { id: 'task-1', content: 'Take out the garbage', description: 'Some more text goest in here epxlaining the job', assignedPersonId: 1, statusId: 1 },
+        'task-2': { id: 'task-2', content: 'Watch my favorite show', description: 'Some more text goest in here epxlaining the job', assignedPersonId: 3, statusId: 2 },
+        'task-3': { id: 'task-3', content: 'Charge my phone', description: 'Some more text goest in here epxlaining the job', assignedPersonId: 1, statusId: 3 },
+        'task-4': { id: 'task-4', content: 'Cook dinner', description: 'Some more text goest in here epxlaining the job', assignedPersonId: 2, statusId: 1 },
+        'task-5': { id: 'task-5', content: 'Take out the garbage 2', description: 'Some more text goest in here epxlaining the job', assignedPersonId: 3, statusId: 2 },
+        'task-6': { id: 'task-6', content: 'Watch my favorite show 2', description: 'Some more text goest in here epxlaining the job', assignedPersonId: 1, statusId: 3 },
+        'task-7': { id: 'task-7', content: 'Charge my phone 2', description: 'Some more text goest in here epxlaining the job', assignedPersonId: 2, statusId: 1 },
+        'task-8': { id: 'task-8', content: 'Cook dinner 2', description: 'Some more text goest in here epxlaining the job', assignedPersonId: 3, statusId: 2 },
     },
     columns: {
         'column-1': {

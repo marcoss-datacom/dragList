@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import FormDialog from './formDialog';
 
 const useStyles = makeStyles({
     root: {
@@ -29,14 +30,14 @@ export default function OutlinedCard(props) {
         <Card className={classes.root} variant="outlined">
             <CardContent>
                 <Typography variant="h5" component="h2">
-                    {props.content}
+                    {props.task.content}
                 </Typography>
                 <Typography variant="body2" component="p">
-                    {props.description}
+                    {props.task.description}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Edit</Button>
+                <FormDialog assignedPersonId={props.task.assignedPersonId} statusId={props.task.statusId} id={props.id} />
             </CardActions>
         </Card>
     );
