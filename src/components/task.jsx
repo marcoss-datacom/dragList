@@ -24,7 +24,7 @@ export default class Task extends React.Component {
             {...provided.draggableProps}
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
-          ><OutlinedCard content={this.props.task.content} description={this.props.task.description} />
+          ><OutlinedCard content={this.props.task.content} description={this.props.task.description} id={this.props.task.id} />
           </Container>
         )}
       </Draggable>

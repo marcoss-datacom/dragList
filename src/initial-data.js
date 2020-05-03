@@ -4,10 +4,10 @@ const initialData = {
         'task-2': { id: 'task-2', content: 'Watch my favorite show', description: 'Some more text goest in here epxlaining the job' },
         'task-3': { id: 'task-3', content: 'Charge my phone', description: 'Some more text goest in here epxlaining the job' },
         'task-4': { id: 'task-4', content: 'Cook dinner', description: 'Some more text goest in here epxlaining the job' },
-        'task-5': { id: 'task-1', content: 'Take out the garbage 2', description: 'Some more text goest in here epxlaining the job' },
-        'task-6': { id: 'task-2', content: 'Watch my favorite show 2', description: 'Some more text goest in here epxlaining the job' },
-        'task-7': { id: 'task-3', content: 'Charge my phone 2', description: 'Some more text goest in here epxlaining the job' },
-        'task-8': { id: 'task-4', content: 'Cook dinner 2', description: 'Some more text goest in here epxlaining the job' },
+        'task-5': { id: 'task-5', content: 'Take out the garbage 2', description: 'Some more text goest in here epxlaining the job' },
+        'task-6': { id: 'task-6', content: 'Watch my favorite show 2', description: 'Some more text goest in here epxlaining the job' },
+        'task-7': { id: 'task-7', content: 'Charge my phone 2', description: 'Some more text goest in here epxlaining the job' },
+        'task-8': { id: 'task-8', content: 'Cook dinner 2', description: 'Some more text goest in here epxlaining the job' },
     },
     columns: {
         'column-1': {
