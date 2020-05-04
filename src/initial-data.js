@@ -39,10 +39,21 @@ const initialData = {
             id: 'column-6',
             title: '8th May',
             taskIds: [],
+        },
+        'column-7': {
+            id: 'column-7',
+            title: '9th May',
+            taskIds: [],
+        },
+        'column-8': {
+            id: 'column-8',
+            title: '10th May',
+            taskIds: [],
         }
     },
     // Facilitate reordering of the columns
-    columnOrder: ['column-1', 'column-2', 'column-3', 'column-4', 'column-5', 'column-6']
+    columnOrder: ['column-1', 'column-2', 'column-3', 'column-4', 'column-5', 'column-6', 'column-7', 'column-8'],
+    startDate: null
 };
 
 export default initialData;

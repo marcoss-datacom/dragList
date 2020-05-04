@@ -6,8 +6,8 @@ import { Droppable } from 'react-beautiful-dnd';
 const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgrey;
-  border-radius: 2px
-  width: 220px;
+  border-radius: 8px
+  width: 210px;
   display: flex;
   flex-direction: column;
 `;
@@ -20,7 +20,7 @@ const TaskList = styled.div`
   background-color: ${props => (props.isDraggingOver ? 'lightgrey' : 'inherit')};
   flex-grow: 1;
   min-height: 100px;
-  width: 280px;
+  width: 190px;
 `;
 
 class InnerList extends React.PureComponent {

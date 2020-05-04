@@ -3,15 +3,31 @@ import ReactDOM from 'react-dom';
 import '@atlaskit/css-reset';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import initialData from './initial-data';
+import Grid from '@material-ui/core/Grid';
 import Column from './components/column'
 import styled from 'styled-components';
-import Appbar from './components/appBar'
+import Appbar from './components/appBar';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Moment from 'moment';
+
 
 const Container = styled.div`
   display: flex;
 `
+const Title = styled.h1`
+  text-align: center;
+  margin-top: 4px;
+  margin-bottom: 4px;
+`;
 
-class InnerList extends React.PureComponent {
+class InnerList extends React.Component {
+  /*   shouldComponentUpdate(nextprops) {
+      if (nextprops.column === this.props.column && nextprops.taskMap === this.props.taskMap && nextprops.index === this.props.index) {
+        return false;
+      }
+      return true;
+    } */
   render() {
     const { column, taskMap, index } = this.props;
     const tasks = column.taskIds.map(taskId => taskMap[taskId]);
@@ -20,12 +36,69 @@ class InnerList extends React.PureComponent {
 }
 
 class App extends React.Component {
-  state = initialData;
+  test = initialData;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      tasks: this.test.tasks,
+      columns: this.test.columns,
+      columnOrder: this.test.columnOrder,
+      startDate: Moment().startOf('week')
+    };
+    this.populateGrid();
+  }
+
   onDragStart = start => {
     const homeIndex = this.state.columnOrder.indexOf(start.source.droppableId);
     this.setState({
       homeIndex,
     });
+  };
+
+  populateGrid = () => {
+    const columns = this.state.columns;
+    const currentDate = new Moment(this.state.startDate);
+    var keys = Object.keys(columns);
+    for (var i = 0; i < keys.length; i++) {
+      if (i > 0) {
+        columns[keys[i]].title = currentDate.add(1, 'd').format("DD ddd");
+      }
+    }
+    this.setState({
+      columns
+    });
+
+    const initialDate = new Moment(currentDate);
+    const title = initialDate.add(-6, 'd').format("DD MMM") + ' To ' + currentDate.format("DD MMM");
+    this.setState({
+      title
+    });
+
+    this.setState({
+      startDate: currentDate
+    });
+
+  };
+
+  onClickNext = () => {
+
+    let currentDate = new Moment(this.state.startDate);
+    currentDate = currentDate.add(7, 'd');
+
+    this.setState({
+      startDate: currentDate
+    });
+    this.populateGrid();
+  };
+
+  onClickPrevious = () => {
+    let currentDate = new Moment(this.state.startDate);
+    currentDate = currentDate.add(-7, 'd');
+    this.setState({
+      startDate: currentDate
+    });
+    this.populateGrid();
   };
 
   onDragEnd = result => {
@@ -49,6 +122,7 @@ class App extends React.Component {
     const start = this.state.columns[source.droppableId];
     const finish = this.state.columns[destination.droppableId];
 
+    // Moving in the same list
     if (start === finish) {
       const newTaskIds = Array.from(start.taskIds)
       newTaskIds.splice(source.index, 1);
@@ -101,7 +175,19 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Appbar />
+        <Appbar tasks={this.state.tasks} />
+        <br />
+        <Grid container spacing={3}>
+          <Grid item xs={10}>
+            <Title>{this.state.Title}</Title>
+          </Grid>
+          <Grid item xs={2}>
+            <ButtonGroup color="primary" aria-label="outlined primary button group">
+              <Button onClick={this.onClickPrevious}>Previous</Button>
+              <Button onClick={this.onClickNext}>Next</Button>
+            </ButtonGroup>
+          </Grid>
+        </Grid>
         <DragDropContext
           onDragStart={this.onDragStart}
           onDragEnd={this.onDragEnd}>
