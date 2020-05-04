@@ -44,8 +44,12 @@ class App extends React.Component {
       tasks: this.test.tasks,
       columns: this.test.columns,
       columnOrder: this.test.columnOrder,
-      startDate: Moment().startOf('week')
+      startDate: Moment().startOf('week'),
+      title: ''
     };
+  }
+
+  componentDidMount() {
     this.populateGrid();
   }
 
@@ -72,32 +76,24 @@ class App extends React.Component {
     const initialDate = new Moment(currentDate);
     const title = initialDate.add(-6, 'd').format("DD MMM") + ' To ' + currentDate.format("DD MMM");
     this.setState({
-      title
-    });
-
-    this.setState({
-      startDate: currentDate
+      title: title
     });
 
   };
 
   onClickNext = () => {
 
-    let currentDate = new Moment(this.state.startDate);
-    currentDate = currentDate.add(7, 'd');
+    this.setState((state, props) => ({
+      startDate: new Moment(state.startDate).add(7, 'd')
+    }));
 
-    this.setState({
-      startDate: currentDate
-    });
     this.populateGrid();
   };
 
   onClickPrevious = () => {
-    let currentDate = new Moment(this.state.startDate);
-    currentDate = currentDate.add(-7, 'd');
-    this.setState({
-      startDate: currentDate
-    });
+    this.setState((state, props) => ({
+      startDate: new Moment(state.startDate).add(-7, 'd')
+    }));
     this.populateGrid();
   };
 
@@ -177,9 +173,9 @@ class App extends React.Component {
       <div>
         <Appbar tasks={this.state.tasks} />
         <br />
-        <Grid container spacing={3}>
+        <Grid container>
           <Grid item xs={10}>
-            <Title>{this.state.Title}</Title>
+            <Title>{this.state.title}</Title>
           </Grid>
           <Grid item xs={2}>
             <ButtonGroup color="primary" aria-label="outlined primary button group">
