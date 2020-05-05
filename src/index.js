@@ -36,14 +36,14 @@ class InnerList extends React.Component {
 }
 
 class App extends React.Component {
-  test = initialData;
+  initial = initialData;
 
   constructor(props) {
     super(props);
     this.state = {
-      tasks: this.test.tasks,
-      columns: this.test.columns,
-      columnOrder: this.test.columnOrder,
+      tasks: this.initial.tasks,
+      columns: this.initial.columns,
+      columnOrder: this.initial.columnOrder,
       startDate: Moment().startOf('week'),
       title: ''
     };
@@ -74,7 +74,7 @@ class App extends React.Component {
     });
 
     const initialDate = new Moment(currentDate);
-    const title = initialDate.add(-6, 'd').format("DD MMM") + ' To ' + currentDate.format("DD MMM");
+    const title = initialDate.add(-6, 'd').format("Do MMM") + ' To ' + currentDate.format("Do MMM");
     this.setState({
       title: title
     });
@@ -82,19 +82,15 @@ class App extends React.Component {
   };
 
   onClickNext = () => {
-
-    this.setState((state, props) => ({
-      startDate: new Moment(state.startDate).add(7, 'd')
-    }));
-
-    this.populateGrid();
+    this.setState({ startDate: new Moment(this.state.startDate).add(7, 'd') }, () => {
+      this.populateGrid();
+    });
   };
 
   onClickPrevious = () => {
-    this.setState((state, props) => ({
-      startDate: new Moment(state.startDate).add(-7, 'd')
-    }));
-    this.populateGrid();
+    this.setState({ startDate: new Moment(this.state.startDate).add(-7, 'd') }, () => {
+      this.populateGrid();
+    });
   };
 
   onDragEnd = result => {

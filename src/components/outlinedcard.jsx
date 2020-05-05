@@ -25,18 +25,23 @@ const useStyles = makeStyles({
     },
     pos: {
         marginBottom: 12,
+        fontWeight: 500,
+        fontSize: '12px'
     },
+    description: {
+        fontSize: '12px'
+    }
 });
 
 export default function OutlinedCard(props) {
     const classes = useStyles();
     return (
-        <Card className={classes.root} variant="outlined">
+        <Card className={classes.root}>
             <CardContent className={classes.cardContent}>
-                <Typography variant="body2" component="p">
-                    <strong>{props.task.content}</strong>
+                <Typography className={classes.pos} >
+                    {props.task.content}
                 </Typography>
-                <Typography variant="body2" component="p">
+                <Typography className={classes.description}>
                     {props.task.description}
                 </Typography>
             </CardContent>
