@@ -6,9 +6,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import FormDialog from './formDialog';
 
+
 const useStyles = makeStyles({
     root: {
         minWidth: 190,
+        backgroundColor: props => props.task.statusId === 1 ? '#fff3e0' : props.task.statusId === 2 ? '#e1f5fe' : '#e0f2f1'
     },
     bullet: {
         display: 'inline-block',
@@ -34,7 +36,7 @@ const useStyles = makeStyles({
 });
 
 export default function OutlinedCard(props) {
-    const classes = useStyles();
+    const classes = useStyles(props);
     return (
         <Card className={classes.root}>
             <CardContent className={classes.cardContent}>

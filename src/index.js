@@ -74,7 +74,7 @@ class App extends React.Component {
     });
 
     const initialDate = new Moment(currentDate);
-    const title = initialDate.add(-6, 'd').format("Do MMM") + ' To ' + currentDate.format("Do MMM");
+    const title = initialDate.add(-6, 'd').format("Do MMMM") + ' to ' + currentDate.format("Do MMMM");
     this.setState({
       title: title
     });

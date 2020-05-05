@@ -10,6 +10,8 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -44,9 +46,17 @@ export default function DialogSelect(props) {
         setOpen(false);
     };
 
+    const handleSave = () => {
+        const person = assignedPerson;
+        const statusId = status;
+        setOpen(false);
+    }
+
     return (
         <div>
-            <Button onClick={handleClickOpen}>Edit</Button>
+            <IconButton aria-label="edit" onClick={handleClickOpen} size="small">
+                <EditIcon />
+            </IconButton>
             <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
                 <DialogTitle>Work Item</DialogTitle>
                 <DialogContent>
@@ -93,7 +103,7 @@ export default function DialogSelect(props) {
                     <Button onClick={handleClose} color="primary">
                         Cancel
           </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleSave} color="primary">
                         Ok
           </Button>
                 </DialogActions>

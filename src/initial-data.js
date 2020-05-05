@@ -12,7 +12,7 @@ const initialData = {
     columns: {
         'column-1': {
             id: 'column-1',
-            title: 'On Hold',
+            title: 'Stash',
             taskIds: [],
         },
         'column-2': {
