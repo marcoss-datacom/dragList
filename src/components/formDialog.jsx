@@ -1,4 +1,6 @@
-import React from 'react';
+
+import React, { useContext } from 'react';
+import { StoreContext } from '../index';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -25,10 +27,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DialogSelect(props) {
+    const store = useContext(StoreContext)
+    const taskId = props.task.id;
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [assignedPerson, setAssignedPerson] = React.useState(props.assignedPersonId);
-    const [status, setStatus] = React.useState(props.statusId);
+    const [assignedPerson, setAssignedPerson] = React.useState(props.task.assignedPersonId);
+    const [status, setStatus] = React.useState(props.task.statusId);
 
     const handlePersonChange = (event) => {
         setAssignedPerson(Number(event.target.value) || '');
@@ -46,68 +50,78 @@ export default function DialogSelect(props) {
         setOpen(false);
     };
 
-    const handleSave = () => {
-        const person = assignedPerson;
-        const statusId = status;
+    const handleSave = (e, store) => {
+        const task = {
+            assignedPersonId: assignedPerson,
+            statusId: status,
+            id: taskId
+        }
+        store.updateTask(task);
         setOpen(false);
     }
 
     return (
-        <div>
-            <IconButton aria-label="edit" onClick={handleClickOpen} size="small">
-                <EditIcon />
-            </IconButton>
-            <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
-                <DialogTitle>Work Item</DialogTitle>
-                <DialogContent>
-                    <form className={classes.container}>
-                        <FormControl className={classes.formControl}>
-                            <InputLabel id="person-slct-label">Assigned To:</InputLabel>
-                            <Select
-                                labelId="person-slct-label"
-                                id="person-select"
-                                value={assignedPerson}
-                                onChange={handlePersonChange}
-                                autoWidth
-                                input={<Input />}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={1}>John Snow </MenuItem>
-                                <MenuItem value={2}>Agent Smith</MenuItem>
-                                <MenuItem value={3}>Aria Stark</MenuItem>
-                                <MenuItem value={4}>Somebody with a really long name</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <FormControl className={classes.formControl}>
-                            <InputLabel id="demo-dialog-select-label">Status</InputLabel>
-                            <Select
-                                labelId="demo-dialog-select-label"
-                                id="demo-dialog-select"
-                                value={status}
-                                onChange={handleStatusChange}
-                                input={<Input />}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={1}>On Hold</MenuItem>
-                                <MenuItem value={2}>In Progress</MenuItem>
-                                <MenuItem value={3}>Completed</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </form>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
+        <StoreContext.Consumer>
+            {
+                store => (
+                    <div>
+                        <IconButton aria-label="edit" onClick={handleClickOpen} size="small">
+                            <EditIcon />
+                        </IconButton>
+                        <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
+                            <DialogTitle>{props.task.content}</DialogTitle>
+                            <DialogContent>
+                                <form className={classes.container}>
+                                    <FormControl className={classes.formControl}>
+                                        <InputLabel id="person-slct-label">Assigned To:</InputLabel>
+                                        <Select
+                                            labelId="person-slct-label"
+                                            id="person-select"
+                                            value={assignedPerson}
+                                            onChange={handlePersonChange}
+                                            autoWidth
+                                            input={<Input />}
+                                        >
+                                            <MenuItem value="">
+                                                <em>None</em>
+                                            </MenuItem>
+                                            <MenuItem value={1}>John Snow </MenuItem>
+                                            <MenuItem value={2}>Agent Smith</MenuItem>
+                                            <MenuItem value={3}>Aria Stark</MenuItem>
+                                            <MenuItem value={4}>Somebody with a really long name</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    <FormControl className={classes.formControl}>
+                                        <InputLabel id="demo-dialog-select-label">Status</InputLabel>
+                                        <Select
+                                            labelId="demo-dialog-select-label"
+                                            id="demo-dialog-select"
+                                            value={status}
+                                            onChange={handleStatusChange}
+                                            input={<Input />}
+                                        >
+                                            <MenuItem value="">
+                                                <em>None</em>
+                                            </MenuItem>
+                                            <MenuItem value={1}>On Hold</MenuItem>
+                                            <MenuItem value={2}>In Progress</MenuItem>
+                                            <MenuItem value={3}>Completed</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </form>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleClose} color="primary">
+                                    Cancel
           </Button>
-                    <Button onClick={handleSave} color="primary">
-                        Ok
+                                <Button onClick={(e) => handleSave(e, store)} color="primary">
+                                    Ok
           </Button>
-                </DialogActions>
-            </Dialog>
-        </div>
+                            </DialogActions>
+                        </Dialog>
+                    </div>
+                )
+            }
+        </StoreContext.Consumer>
     );
 }

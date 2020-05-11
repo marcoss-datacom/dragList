@@ -10,6 +10,9 @@ import Appbar from './components/appBar';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Moment from 'moment';
+import taskStore from './stores/taskStore'
+import { toJS } from 'mobx';
+import _ from 'underscore';
 
 
 const Container = styled.div`
@@ -21,6 +24,8 @@ const Title = styled.h1`
   margin-bottom: 4px;
 `;
 
+export const StoreContext = React.createContext();
+
 class InnerList extends React.Component {
   /*   shouldComponentUpdate(nextprops) {
       if (nextprops.column === this.props.column && nextprops.taskMap === this.props.taskMap && nextprops.index === this.props.index) {
@@ -30,7 +35,10 @@ class InnerList extends React.Component {
     } */
   render() {
     const { column, taskMap, index } = this.props;
-    const tasks = column.taskIds.map(taskId => taskMap[taskId]);
+    const tasks = _(column.taskIds).chain().map(function (ea) {
+      return _.find(taskMap, function (eb) { return ea === eb.id; });
+    }).compact().value();
+    //const tasks = column.taskIds.map(taskId => toJS(taskMap[taskId]));
     return <Column column={column} tasks={tasks} index={index} />
   }
 }
@@ -41,7 +49,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: this.initial.tasks,
       columns: this.initial.columns,
       columnOrder: this.initial.columnOrder,
       startDate: Moment().startOf('week'),
@@ -190,10 +197,7 @@ class App extends React.Component {
                   ref={provided.innerRef}>
                   {this.state.columnOrder.map((columnId, index) => {
                     const column = this.state.columns[columnId];
-                    //const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
-                    //const isDropDisabled = index < this.state.homeIndex;
-                    //isDropDisabled={isDropDisabled}
-                    return (<InnerList key={column.id} column={column} taskMap={this.state.tasks} index={index} />);
+                    return (<InnerList key={column.id} column={column} taskMap={taskStore.tasks} index={index} />);
                   })}
                 </Container>
               )
@@ -204,5 +208,8 @@ class App extends React.Component {
     )
   }
 }
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<StoreContext.Provider value={taskStore}>
+  <App />
+</StoreContext.Provider >
+  , document.getElementById('root'));
 

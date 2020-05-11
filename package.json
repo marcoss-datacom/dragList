@@ -1,5 +1,5 @@
 {
-  "name": "task-app",
+  "name": "work-items-board",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,6 +9,8 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "mobx": "^5.15.4",
+    "mobx-react": "^6.2.2",
     "moment": "2.24.0",
     "moment-timezone": "^0.5.28",
     "react": "^16.13.1",
@@ -38,5 +40,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-decorators": "^7.8.3"
   }
 }
